@@ -1,40 +1,45 @@
+import {useEffect, useState} from "react";
+import {api} from "../utils/Api";
 
 
-function Main(){
+function Main({onEditProfile, onAddPlace, onEditAvatar}) {
 
-  function handleAvatarClick() {
-  const avatar = document.querySelector('#avatar')
-    document.querySelector('.pop-up_place_update-avatar').classList.add('pop-up_active')
-  }
+  const [userName, setUserName] = useState('');
+  const [userDescription, setUserDescription] = useState('');
+  const [userAvatar, setUserAvatar] = useState('');
+  const [userId, setUserId] = useState(null)
 
-  function handleEditProfileClick() {
-    const profile = document.querySelector('.profile__edit-button')
-    document.querySelector('.pop-up_place_profile').classList.add('pop-up_active')
-  }
 
-  function handleAddPlaceClick() {
-    const place = document.querySelector('.profile__add-button')
-    document.querySelector('.pop-up_place_add-place').classList.add('pop-up_active')
-  }
+
+  useEffect(() => {
+    api.getServerUserInfo().then((info) => {
+
+      setUserId(info.id)
+      setUserName(info.name)
+      setUserDescription(info.about)
+      setUserAvatar(info.avatar)
+    }  )
+  })
 
   return (
     <main className="main">
       <section className="profile">
 
-        <button onClick={handleAvatarClick} id="avatar" className="profile__avatar"></button>
+        <button onClick={onEditAvatar} id="avatar" style={{ backgroundImage: `url(${userAvatar})` }} className="profile__avatar"></button>
         <div className="profile__desc">
-          <button onClick={handleEditProfileClick} type="button" className="profile__edit-button"></button>
-          <h1 className="profile__name"></h1>
+          <button onClick={onEditProfile} type="button" className="profile__edit-button"></button>
+          <h1 className="profile__name">{userName}</h1>
 
-          <p className="profile__info"></p>
+          <p className="profile__info">{userDescription}</p>
         </div>
 
-        <button onClick={handleAddPlaceClick} type="button" className="profile__add-button"></button>
+        <button onClick={onAddPlace} type="button" className="profile__add-button"></button>
       </section>
       <section className="places">
         <ul className="cards"></ul>
       </section>
     </main>
-  )
+  );
 }
-export default Main
+
+export default Main;

@@ -9,12 +9,17 @@ import {useState, useEffect} from "react";
 
 const App = () => {
 
-  const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false)
+  const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = useState(false);
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
-  // const [isClosePopup, setIsClosePopup] = useState(false)
+  const [selectedCard, setSelectedCard] = useState(null);
+
   function handleEditProfileClick() {
     setIsEditProfilePopupOpen(true);
+  }
+
+  function handleCardClick(card) {
+    setSelectedCard(card);
   }
 
   function handleAddPlaceClick() {
@@ -26,18 +31,21 @@ const App = () => {
   }
 
   function closeAllPopups() {
-    setIsEditAvatarPopupOpen(false)
-    setIsAddPlacePopupOpen(false)
-    setIsEditProfilePopupOpen(false)
+    setIsEditAvatarPopupOpen(false);
+    setIsAddPlacePopupOpen(false);
+    setIsEditProfilePopupOpen(false);
+    setSelectedCard(null);
   }
 
   return (
     <>
       <Header/>
       <Main
-      onEditProfile={handleEditProfileClick}
-      onAddPlace={handleAddPlaceClick}
-      onEditAvatar={handleEditAvatarClick}
+        cards={cards}
+        onEditProfile={handleEditProfileClick}
+        onAddPlace={handleAddPlaceClick}
+        onEditAvatar={handleEditAvatarClick}
+        onCardClick={handleCardClick}
       />
       <Footer/>
       <PopupWithForm
@@ -122,14 +130,6 @@ const App = () => {
       </PopupWithForm>
 
 
-      <div className="pop-up pop-up_place_img">
-        <div className="pop-up__container pop-up__container_place_img">
-          <img className="pop-up__img" src="#" alt="#"/>
-          <h2 className="pop-up__title-img">Название</h2>
-          <button type="button" className="pop-up__close pop-up__close_place_place"></button>
-        </div>
-      </div>
-
       <PopupWithForm
         name={'delete-card'}
         title={'Вы уверены?'}
@@ -138,7 +138,7 @@ const App = () => {
         // onSubmit={}
         submitButtonText={'Да'}/>
 
-      <ImagePopup/>
+      <ImagePopup selectedCard={selectedCard} onClose={closeAllPopups}/>
 
     </>
   );

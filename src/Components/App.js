@@ -41,11 +41,12 @@ const App = () => {
     <>
       <Header/>
       <Main
-        cards={cards}
+
+        onCardClick={handleCardClick}
         onEditProfile={handleEditProfileClick}
         onAddPlace={handleAddPlaceClick}
         onEditAvatar={handleEditAvatarClick}
-        onCardClick={handleCardClick}
+
       />
       <Footer/>
       <PopupWithForm
@@ -138,7 +139,9 @@ const App = () => {
         // onSubmit={}
         submitButtonText={'Да'}/>
 
-      <ImagePopup selectedCard={selectedCard} onClose={closeAllPopups}/>
+      <ImagePopup
+        selectedCard={selectedCard}
+        onClose={closeAllPopups}/>
 
     </>
   );

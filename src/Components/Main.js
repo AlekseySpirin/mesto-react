@@ -3,7 +3,8 @@ import {api} from "../utils/Api";
 import Card from "./Card";
 
 
-function Main({onEditProfile, onAddPlace, onEditAvatar, onCardClick, }) {
+function Main(props) {
+  const {onEditProfile, onAddPlace, onEditAvatar, onCardClick, } = props
 
   const [userName, setUserName] = useState('');
   const [userDescription, setUserDescription] = useState('');

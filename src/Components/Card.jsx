@@ -2,7 +2,7 @@ function Card(props) {
 	const {card, onCardClick} = props;
 	
 	function handleClick() {
-		onCardClick(card);
+		onCardClick(card); 
 	}
 	
 	return (<li className="card" key={card._id}>

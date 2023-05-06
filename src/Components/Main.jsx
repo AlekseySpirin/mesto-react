@@ -2,8 +2,8 @@ import {useEffect, useState} from "react";
 import {api} from "../utils/Api";
 import Card from "./Card";
 
-function Main(props) {
-	const {onEditProfile, onAddPlace, onEditAvatar, onCardClick,} = props;
+function Main({onEditProfile, onAddPlace, onEditAvatar, onCardClick,}) {
+	
 	const [userName, setUserName] = useState('');
 	const [userDescription, setUserDescription] = useState('');
 	const [userAvatar, setUserAvatar] = useState('');

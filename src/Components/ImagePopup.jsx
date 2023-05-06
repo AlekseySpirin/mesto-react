@@ -1,5 +1,5 @@
-function ImagePopup(props) {
-	const {selectedCard, onClose} = props;
+function ImagePopup({selectedCard, onClose}) {
+	
 	return (<div className={`pop-up pop-up_place_img ${selectedCard ? 'pop-up_active' : ''}`}>
 		<div className="pop-up__container pop-up__container_place_img">
 			<img className="pop-up__img" src={selectedCard?.link}

@@ -1,4 +1,5 @@
 .card__trash {
+    border: none;
     position: absolute;
     width: 18px;
     height: 19px;
@@ -7,7 +8,7 @@
     background: url(../../../images/svg/Trash.svg) no-repeat;
     z-index: 10;
     transition: 0.3s ease;
-    /* transform: translate(0%, -30%) scale(0); */
+
 }
 
 .card__trash:hover {
@@ -15,12 +16,3 @@
     cursor: pointer;
 }
 
-/* .card:hover .card__trash {
-  transform: translateY(0%) scale(100%);
-} */
-
-/* @media (max-width: 768px) {
-  .card__trash {
-    transform: translateY(0%) scale(100%);
-  }
-} */

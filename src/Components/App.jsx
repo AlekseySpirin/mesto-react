@@ -69,6 +69,13 @@ const App = () => {
 		});
 	}
 	
+	function handleCardDelete(card) {
+		api.deleteCardServer(card._id).then(() => {
+		const updatedCards = cards.filter((c) => c._id !== card._id)
+			setCards(updatedCards)
+		});
+	}
+	
 	return (
 		<>
 			<CurrentUserContext.Provider value={currentUser}>
@@ -80,6 +87,7 @@ const App = () => {
 						onEditProfile={handleEditProfileClick}
 						onAddPlace={handleAddPlaceClick}
 						onEditAvatar={handleEditAvatarClick}
+						onCardDelete={handleCardDelete}
 					/>
 				</CardContext.Provider>
 				<Footer/>

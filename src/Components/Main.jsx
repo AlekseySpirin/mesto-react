@@ -1,22 +1,18 @@
-import {useEffect, useState} from "react";
+import {useEffect, useState, useContext} from "react";
 import {api} from "../utils/Api";
 import Card from "./Card";
+import CurrentUserContext from "../contexts/CurrentUserContext";
 
 function Main({onEditProfile, onAddPlace, onEditAvatar, onCardClick,}) {
 	
-	const [userName, setUserName] = useState('');
-	const [userDescription, setUserDescription] = useState('');
-	const [userAvatar, setUserAvatar] = useState('');
-	const [userId, setUserId] = useState(null);
+	
 	const [cards, setCards] = useState([]);
 	
+	const currentUser = useContext(CurrentUserContext);
+	
 	useEffect(() => {
-		Promise.all([api.getServerUserInfo(), api.getInitialCards()])
-			.then(([info, card]) => {
-				setUserId(info._id);
-				setUserName(info.name);
-				setUserDescription(info.about);
-				setUserAvatar(info.avatar);
+		api.getInitialCards()
+			.then((card) => {
 				setCards(card);
 			})
 			.catch(err => console.log(err));
@@ -25,14 +21,17 @@ function Main({onEditProfile, onAddPlace, onEditAvatar, onCardClick,}) {
 	return (
 		<main className="main">
 			<section className="profile">
-				<button onClick={onEditAvatar} id="avatar" style={{backgroundImage: `url(${userAvatar})`}}
+				<button onClick={onEditAvatar} id="avatar"
+				        style={{backgroundImage: `url(${currentUser.avatar})`}}
 				        className="profile__avatar"></button>
 				<div className="profile__desc">
-					<button onClick={onEditProfile} type="button" className="profile__edit-button"></button>
-					<h1 className="profile__name">{userName}</h1>
-					<p className="profile__info">{userDescription}</p>
+					<button onClick={onEditProfile} type="button"
+					        className="profile__edit-button"></button>
+					<h1 className="profile__name">{currentUser.name}</h1>
+					<p className="profile__info">{currentUser.about}</p>
 				</div>
-				<button onClick={onAddPlace} type="button" className="profile__add-button"></button>
+				<button onClick={onAddPlace} type="button"
+				        className="profile__add-button"></button>
 			</section>
 			<section className="places">
 				<ul className="cards">

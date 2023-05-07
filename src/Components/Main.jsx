@@ -4,7 +4,13 @@ import Card from "./Card";
 import CurrentUserContext from "../contexts/CurrentUserContext";
 import CardContext from "../contexts/CardContext";
 
-function Main({onEditProfile, onAddPlace, onEditAvatar, onCardClick}) {
+function Main({
+	              onEditProfile,
+	              onAddPlace,
+	              onEditAvatar,
+	              onCardClick,
+	              onCardLike
+              }) {
 	
 	const cards = useContext(CardContext);
 	const currentUser = useContext(CurrentUserContext);
@@ -28,6 +34,7 @@ function Main({onEditProfile, onAddPlace, onEditAvatar, onCardClick}) {
 				<ul className="cards">
 					{cards.map((card) => (
 						<Card key={card._id}
+						      onCardLike={onCardLike}
 						      card={card}
 						      onCardClick={onCardClick}/>
 					))}

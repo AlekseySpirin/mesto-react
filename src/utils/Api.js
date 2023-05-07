@@ -37,7 +37,11 @@ class Api {
 		return fetch(`${this.url}/cards`, {
 			method: 'POST',
 			headers: this.headers,
-			body: JSON.stringify({name: formData.place, link: formData.link, likes: formData.likes}),
+			body: JSON.stringify({
+				name: formData.place,
+				link: formData.link,
+				likes: formData.likes
+			}),
 		}).then((res) => this._getResponseData(res));
 	}
 	
@@ -56,16 +60,24 @@ class Api {
 		}).then((res) => this._getResponseData(res));
 	}
 	
-	addLikeServer(cardId) {
-		return fetch(`${this.url}/cards/${cardId}/likes`, {
-			method: 'PUT',
-			headers: this.headers,
-		}).then((res) => this._getResponseData(res));
-	}
+	// addLikeServer(cardId) {
+	// 	return fetch(`${this.url}/cards/${cardId}/likes`, {
+	// 		method: 'PUT',
+	// 		headers: this.headers,
+	// 	}).then((res) => this._getResponseData(res));
+	// }
+	//
+	// deleteLikeServer(cardId) {
+	// 	return fetch(`${this.url}/cards/${cardId}/likes`, {
+	// 		method: 'DELETE',
+	// 		headers: this.headers,
+	// 	}).then((res) => this._getResponseData(res));
+	// }
 	
-	deleteLikeServer(cardId) {
+	changeLikeCardStatus(cardId, isLiked) {
+		
 		return fetch(`${this.url}/cards/${cardId}/likes`, {
-			method: 'DELETE',
+			method: isLiked ? 'PUT' : 'DELETE',
 			headers: this.headers,
 		}).then((res) => this._getResponseData(res));
 	}
@@ -73,7 +85,10 @@ class Api {
 
 export const api = new Api({
 	url: 'https://mesto.nomoreparties.co/v1/cohort-63',
-	headers: {authorization: '6e9922b1-82bb-44b1-8c4a-e1a93da7bd0f', 'Content-Type': 'application/json'},
+	headers: {
+		authorization: '6e9922b1-82bb-44b1-8c4a-e1a93da7bd0f',
+		'Content-Type': 'application/json'
+	},
 });
 
 

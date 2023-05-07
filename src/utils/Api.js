@@ -33,23 +33,19 @@ class Api {
 		}).then((res) => this._getResponseData(res));
 	}
 	
-	addCardServer(formData) {
-		return fetch(`${this.url}/cards`, {
-			method: 'POST',
-			headers: this.headers,
-			body: JSON.stringify({
-				name: formData.place,
-				link: formData.link,
-				likes: formData.likes
-			}),
-		}).then((res) => this._getResponseData(res));
-	}
-	
-	editAvatar(avatar) {
+	editAvatar({avatar}) {
 		return fetch(`${this.url}/users/me/avatar`, {
 			method: 'PATCH',
 			headers: this.headers,
-			body: JSON.stringify({avatar: avatar.link}),
+			body: JSON.stringify({avatar}),
+		}).then((res) => this._getResponseData(res));
+	}
+	
+	addCardServer({name, link}) {
+		return fetch(`${this.url}/cards`, {
+			method: 'POST',
+			headers: this.headers,
+			body: JSON.stringify({name, link}),
 		}).then((res) => this._getResponseData(res));
 	}
 	

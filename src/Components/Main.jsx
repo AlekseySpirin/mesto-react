@@ -9,7 +9,8 @@ function Main({
 	              onAddPlace,
 	              onEditAvatar,
 	              onCardClick,
-	              onCardLike
+	              onCardLike,
+	              onCardDelete
               }) {
 	
 	const cards = useContext(CardContext);
@@ -36,7 +37,9 @@ function Main({
 						<Card key={card._id}
 						      onCardLike={onCardLike}
 						      card={card}
-						      onCardClick={onCardClick}/>
+						      onCardClick={onCardClick}
+						      onCardDelete={onCardDelete}
+						/>
 					))}
 				</ul>
 			</section>

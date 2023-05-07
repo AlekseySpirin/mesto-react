@@ -33,6 +33,14 @@ class Api {
 		}).then((res) => this._getResponseData(res));
 	}
 	
+	editAvatar({avatar}) {
+		return fetch(`${this.url}/users/me/avatar`, {
+			method: 'PATCH',
+			headers: this.headers,
+			body: JSON.stringify({avatar}),
+		}).then((res) => this._getResponseData(res));
+	}
+	
 	addCardServer(formData) {
 		return fetch(`${this.url}/cards`, {
 			method: 'POST',
@@ -42,14 +50,6 @@ class Api {
 				link: formData.link,
 				likes: formData.likes
 			}),
-		}).then((res) => this._getResponseData(res));
-	}
-	
-	editAvatar(avatar) {
-		return fetch(`${this.url}/users/me/avatar`, {
-			method: 'PATCH',
-			headers: this.headers,
-			body: JSON.stringify({avatar: avatar.link}),
 		}).then((res) => this._getResponseData(res));
 	}
 	

@@ -9,7 +9,7 @@ function PopupWithForm({title, name, submitButtonText, children, isOpen, onClose
 					<h2 className="form__title">{title}</h2>
 					{children}
 					<button type="submit" className="pop-up__button pop-up__button_place_edit-profile"
-					        disabled>{submitButtonText || 'Сохранить'}</button>
+					        >{submitButtonText || 'Сохранить'}</button>
 				</form>
 				<button onClick={onClose} type="button" className={`pop-up__close pop-up__close_place_${name}`}></button>
 			</div>

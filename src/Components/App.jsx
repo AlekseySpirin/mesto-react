@@ -9,6 +9,7 @@ import {api} from "../utils/Api";
 import CurrentUserContext from "../contexts/CurrentUserContext";
 import CardContext from "../contexts/CardContext";
 import EditProfilePopup from "./EditProfilePopup";
+import EditAvatarPopup from "./EditAvatarPopup";
 
 const App = () => {
 	
@@ -16,7 +17,11 @@ const App = () => {
 	const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = useState(false);
 	const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
 	const [selectedCard, setSelectedCard] = useState(null);
-	const [currentUser, setCurrentUser] = useState({name: '', about: ''});
+	const [currentUser, setCurrentUser] = useState({
+		name: '',
+		about: '',
+		avatar: ''
+	});
 	const [cards, setCards] = useState([]);
 	
 	// Получение информации о пользователе //
@@ -84,6 +89,15 @@ const App = () => {
 		});
 	}
 	
+	function handleUpdateAvatar({avatar}) {
+		
+		api.editAvatar({avatar}).then((userAvatar) => {
+			
+			setCurrentUser(userAvatar);
+		});
+		
+	}
+	
 	return (
 		<>
 			<CurrentUserContext.Provider value={currentUser}>
@@ -130,23 +144,8 @@ const App = () => {
 					/>
 					<span className="form__item-error form__item-error_el_link"></span>
 				</PopupWithForm>
-				<PopupWithForm
-					name={'update-avatar'}
-					title={'Обновить аватар'}
-					isOpen={isEditAvatarPopupOpen}
-					onClose={closeAllPopups}
-					// onSubmit={}
-				>
-					<input
-						id="link-avatar"
-						name="link"
-						className="form__item form__item_el_link"
-						type="url"
-						placeholder="Ссылка на картинку"
-						required
-					/>
-					<span className="form__item-error form__item-error_el_link"></span>
-				</PopupWithForm>
+				<EditAvatarPopup isOpen={isEditAvatarPopupOpen} onClose={closeAllPopups}
+				                 onUpdateAvatar={handleUpdateAvatar}/>
 				<PopupWithForm
 					name={'delete-card'}
 					title={'Вы уверены?'}

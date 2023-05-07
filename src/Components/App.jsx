@@ -12,7 +12,6 @@ import EditProfilePopup from "./EditProfilePopup";
 import EditAvatarPopup from "./EditAvatarPopup";
 import AddPlacePopup from "./AddPlacePopup";
 
-
 const App = () => {
 	
 	const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
@@ -39,7 +38,6 @@ const App = () => {
 	useEffect(() => {
 		api.getInitialCards()
 			.then((card) => {
-				console.log(card)
 				setCards(card);
 			})
 			.catch(err => console.log(err));
@@ -93,19 +91,17 @@ const App = () => {
 	}
 	
 	function handleUpdateAvatar({avatar}) {
-		
 		api.editAvatar({avatar}).then((userAvatar) => {
 			setCurrentUser(userAvatar);
-			closeAllPopups()
+			closeAllPopups();
 		});
 	}
 	
 	function handleAddPlace({name, link}) {
-		console.log({name, link})
+		
 		api.addCardServer({name, link}).then((newCard) => {
-			console.log(newCard)
 			setCards([newCard, ...cards]);
-			closeAllPopups()
+			closeAllPopups();
 		});
 	}
 	

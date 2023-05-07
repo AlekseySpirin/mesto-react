@@ -8,6 +8,7 @@ import {useEffect, useState} from "react";
 import {api} from "../utils/Api";
 import CurrentUserContext from "../contexts/CurrentUserContext";
 import CardContext from "../contexts/CardContext";
+import EditProfilePopup from "./EditProfilePopup";
 
 const App = () => {
 	
@@ -15,7 +16,7 @@ const App = () => {
 	const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = useState(false);
 	const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
 	const [selectedCard, setSelectedCard] = useState(null);
-	const [currentUser, setCurrentUser] = useState('');
+	const [currentUser, setCurrentUser] = useState({name: '', about: ''});
 	const [cards, setCards] = useState([]);
 	
 	// Получение информации о пользователе //
@@ -71,8 +72,15 @@ const App = () => {
 	
 	function handleCardDelete(card) {
 		api.deleteCardServer(card._id).then(() => {
-		const updatedCards = cards.filter((c) => c._id !== card._id)
-			setCards(updatedCards)
+			const updatedCards = cards.filter((c) => c._id !== card._id);
+			setCards(updatedCards);
+		});
+	}
+	
+	function handleUpdateUser({name, about}) {
+		api.editServerProfile({name, about}).then((userInfo) => {
+			setCurrentUser(userInfo);
+			closeAllPopups();
 		});
 	}
 	
@@ -91,36 +99,9 @@ const App = () => {
 					/>
 				</CardContext.Provider>
 				<Footer/>
-				<PopupWithForm
-					name={'edit-profile'}
-					title={'Редактировать профиль'}
-					isOpen={isEditProfilePopupOpen}
-					onClose={closeAllPopups}
-					// onSubmit={}
-				>
-					<input
-						name="name"
-						className="form__item form__item_el_name"
-						placeholder="Имя"
-						type="text"
-						id="name"
-						minLength="2"
-						maxLength="40"
-						required
-					/>
-					<span className="form__item-error form__item-error_el_name"></span>
-					<input
-						name="info"
-						placeholder="Вид деятельности"
-						className="form__item form__item_el_info"
-						type="text"
-						id="info"
-						minLength="2"
-						maxLength="200"
-						required
-					/>
-					<span className="form__item-error form__item-error_el_info"></span>
-				</PopupWithForm>
+				<EditProfilePopup onUpdateUser={handleUpdateUser}
+				                  isOpen={isEditProfilePopupOpen}
+				                  onClose={closeAllPopups}/>
 				<PopupWithForm
 					name={'add-place'}
 					title={'Новое место'}

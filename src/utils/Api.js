@@ -25,11 +25,11 @@ class Api {
 		}).then((res) => this._getResponseData(res));
 	}
 	
-	editServerProfile(userData) {
+	editServerProfile({name, about}) {
 		return fetch(`${this.url}/users/me`, {
 			method: 'PATCH',
 			headers: this.headers,
-			body: JSON.stringify({name: userData.name, about: userData.info}),
+			body: JSON.stringify({name, about}),
 		}).then((res) => this._getResponseData(res));
 	}
 	

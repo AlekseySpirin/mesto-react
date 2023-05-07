@@ -2,7 +2,6 @@ import {useContext} from "react";
 
 import Card from "./Card";
 import CurrentUserContext from "../contexts/CurrentUserContext";
-import CardContext from "../contexts/CardContext";
 
 function Main({
 	              onEditProfile,
@@ -10,10 +9,10 @@ function Main({
 	              onEditAvatar,
 	              onCardClick,
 	              onCardLike,
-	              onCardDelete
+	              onCardDelete,
+	              cards
               }) {
 	
-	const cards = useContext(CardContext);
 	const currentUser = useContext(CurrentUserContext);
 	
 	return (

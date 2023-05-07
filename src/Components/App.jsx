@@ -7,6 +7,7 @@ import ImagePopup from "./ImagePopup";
 import {useEffect, useState} from "react";
 import {api} from "../utils/Api";
 import CurrentUserContext from "../contexts/CurrentUserContext";
+import CardContext from "../contexts/CardContext";
 
 const App = () => {
 	
@@ -15,12 +16,22 @@ const App = () => {
 	const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
 	const [selectedCard, setSelectedCard] = useState(null);
 	const [currentUser, setCurrentUser] = useState('');
+	const [cards, setCards] = useState([]);
 	
 	// Получение информации о пользователе //
 	useEffect(() => {
 		api.getServerUserInfo()
 			.then((info) => {
 				setCurrentUser(info);
+			})
+			.catch(err => console.log(err));
+	}, []);
+	
+	// Получение карточке //
+	useEffect(() => {
+		api.getInitialCards()
+			.then((card) => {
+				setCards(card);
 			})
 			.catch(err => console.log(err));
 	}, []);
@@ -52,12 +63,14 @@ const App = () => {
 		<>
 			<CurrentUserContext.Provider value={currentUser}>
 				<Header/>
-				<Main
-					onCardClick={handleCardClick}
-					onEditProfile={handleEditProfileClick}
-					onAddPlace={handleAddPlaceClick}
-					onEditAvatar={handleEditAvatarClick}
-				/>
+				<CardContext.Provider value={cards}>
+					<Main
+						onCardClick={handleCardClick}
+						onEditProfile={handleEditProfileClick}
+						onAddPlace={handleAddPlaceClick}
+						onEditAvatar={handleEditAvatarClick}
+					/>
+				</CardContext.Provider>
 				<Footer/>
 				<PopupWithForm
 					name={'edit-profile'}

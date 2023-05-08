@@ -14,10 +14,16 @@ const AddPlacePopup = ({isOpen, onClose, onAddPlace}) => {
 		setLinkCard(e.target.value);
 	}
 	
+	
+	
 	function handleAddPlaceSubmit(e) {
 		e.preventDefault();
 		onAddPlace({name: nameCard, link: linkCard});
+		setNameCard('')
+		setLinkCard('')
 	}
+	
+	
 	
 	return (
 		<PopupWithForm

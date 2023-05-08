@@ -1,6 +1,8 @@
+
+
 function PopupWithForm({title, name, submitButtonText, children, isOpen, onClose, onSubmit}) {
 	
-	
+
 	
 	return (
 		<div className={`pop-up  ${isOpen ? 'pop-up_active' : ''}`}>

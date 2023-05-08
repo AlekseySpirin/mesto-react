@@ -1,29 +1,31 @@
-import {useState} from 'react';
+import {useEffect, useState} from 'react';
 import PopupWithForm from "./PopupWithForm";
 
 const AddPlacePopup = ({isOpen, onClose, onAddPlace}) => {
+	const [values, setValues] = useState({name: '', link: ''});
+	// const [nameCard, setNameCard] = useState('');
+	// const [linkCard, setLinkCard] = useState('');
 	
-	const [nameCard, setNameCard] = useState('');
-	const [linkCard, setLinkCard] = useState('');
+	// function handleChangeNameCard(e) {
+	// 	setNameCard(e.target.value);
+	// }
+	//
+	// function handleChangeLinkCard(e) {
+	// 	setLinkCard(e.target.value);
+	// }
 	
-	function handleChangeNameCard(e) {
-		setNameCard(e.target.value);
-	}
-	
-	function handleChangeLinkCard(e) {
-		setLinkCard(e.target.value);
-	}
-	
-	
+	useEffect(() => {
+		if (isOpen) {
+			setValues({name: '', link: ''});
+		}
+		
+	}, [isOpen]);
 	
 	function handleAddPlaceSubmit(e) {
 		e.preventDefault();
-		onAddPlace({name: nameCard, link: linkCard});
-		setNameCard('')
-		setLinkCard('')
+		onAddPlace({name: values.name, link: values.link});
+		
 	}
-	
-	
 	
 	return (
 		<PopupWithForm
@@ -36,8 +38,8 @@ const AddPlacePopup = ({isOpen, onClose, onAddPlace}) => {
 			<input
 				id="place"
 				name="place"
-				value={nameCard}
-				onChange={handleChangeNameCard}
+				value={values.name}
+				onChange={(e) => setValues({...values, name: e.target.value})}
 				className="form__item form__item_el_name"
 				type="text"
 				placeholder="Название"
@@ -49,8 +51,8 @@ const AddPlacePopup = ({isOpen, onClose, onAddPlace}) => {
 			<input
 				id="link"
 				name="link"
-				value={linkCard}
-				onChange={handleChangeLinkCard}
+				value={values.link}
+				onChange={(e) => setValues({...values, link: e.target.value})}
 				className="form__item form__item_el_link"
 				type="url"
 				placeholder="Ссылка на картинку"

@@ -12,16 +12,15 @@ function Card({card, onCardClick, onCardLike, onCardDelete}) {
 	
 	function handleClick() {
 		onCardClick(card);
-		
 	}
 	
 	function handleLikeClick() {
 		onCardLike(card);
 	}
 	
-	function handleCardDelete() {
-		onCardDelete(card)
-	}
+	const handleCardDelete = () => {
+		onCardDelete(card);
+	};
 	
 	return (<li className="card" key={card._id}>
 		<img className="card__img" src={card.link} alt={card.name}

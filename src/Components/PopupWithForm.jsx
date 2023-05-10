@@ -12,11 +12,11 @@ function PopupWithForm({
 		<div className={`pop-up  ${isOpen ? 'pop-up_active' : ''}`}>
 			<div className="pop-up__container">
 				<form onSubmit={onSubmit} name={name} action="#"
-				      className="form form_place_edit-profile" noValidate>
+				      className="form" noValidate>
 					<h2 className="form__title">{title}</h2>
 					{children}
 					<button type="submit"
-					        className="pop-up__button pop-up__button_place_edit-profile"
+					        className="pop-up__button"
 					>{submitButtonText || 'Сохранить'}</button>
 				</form>
 				<button onClick={onClose} type="button"
